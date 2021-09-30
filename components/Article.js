@@ -114,3 +114,55 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+
+function articleMaker({title, date, firstParagraph, secondParagraph, thirdParagraph}) {
+
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const paragraph = [];
+  for(let i=0; i< 3; i++){
+    paragraph[i] = document.createElement('p');
+  }
+  const expandButton = document.createElement('span');
+
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  for(let i=0; i< 3; i++){
+    article.appendChild(paragraph[i]);
+  }
+  article.appendChild(expandButton)
+
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  expandButton.classList.add('expandButton');
+
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  paragraph[0].textContent = firstParagraph;
+  paragraph[1].textContent = secondParagraph;
+  paragraph[2].textContent = thirdParagraph;
+  expandButton.textContent = '+';
+  
+  expandButton.addEventListener('click',function(){
+    article.classList.toggle('article-open'); 
+  });
+
+   return article;
+}
+const articles = document.querySelector('.articles');
+console.log(articles);
+
+//const menuEl = articleMaker(data);
+// const articleElement = articleMaker({title: "Hello", date: 20210929, firstParagraph:'firstParagraph', secondParagraph: "secondParagraph" , thirdParagraph:'thirdParagraph'});
+// articles.appendChild(articleElement);
+
+data.push({title: "Hello", date: 'June 7th, 2019', firstParagraph:'firstParagraph', secondParagraph: "secondParagraph" , thirdParagraph:'thirdParagraph'});
+
+const articleElements = data.map(articleEl => {
+  return articleMaker(articleEl);
+})
+articleElements.forEach(panelEl => {
+  articles.appendChild(panelEl);
+})
